@@ -1,0 +1,25 @@
+[package]
+name = "archiver"
+publish = false
+autotests = false
+edition = "2024"
+rust-version = "1.88"
+description = "Блочный архиватор LZ77&rANS&RS"
+
+[lib]
+test = false
+doctest = false
+
+[[bin]]
+name = "arch"
+path = "src/main.rs"
+test = false
+
+[[test]]
+name = "all"
+path = "tests/all.rs"
+harness = false
+
+[dependencies]
+reed-solomon = "=0.2.1"
+rayon = "=1.12.0"
