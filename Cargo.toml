@@ -23,3 +23,8 @@ harness = false
 [dependencies]
 reed-solomon = "=0.2.1"
 rayon = "=1.12.0"
+
+[[test]]
+name = "bench"
+path = "tests/bench.rs"
+harness = false
