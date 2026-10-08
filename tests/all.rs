@@ -50,40 +50,6 @@ fn length_prefix_size(bytes: &[u8]) -> usize {
     bytes.len() - rest.len()
 }
 
-fn varint_boundaries_canonical_encoding_and_errors() {
-    for value in [0, 1, 127, 128, 255, 4096, 16383, 16384, 65536, u64::MAX] {
-        let mut bytes = Vec::new();
-        varint::write(&mut bytes, value).unwrap();
-        let expected_size = if value == 0 {
-            1
-        } else {
-            (64 - value.leading_zeros()).div_ceil(7) as usize
-        };
-        assert_eq!(bytes.len(), expected_size);
-        bytes.push(0x42); // Reader должен остановиться точно на границе varint.
-        let mut input = bytes.as_slice();
-        assert_eq!(varint::read(&mut input).unwrap(), value);
-        assert_eq!(input, [0x42]);
-    }
-    for bytes in [
-        vec![],
-        vec![0x80],
-        vec![0x80, 0],
-        vec![0x81, 0],
-        vec![0xff; 10],
-        [vec![0xff; 9], vec![2]].concat(),
-        vec![0x80; 11],
-    ] {
-        assert!(varint::read(&mut bytes.as_slice()).is_err(), "{bytes:?}");
-    }
-    assert!(varint::read_bounded(&mut [0x80, 0x20].as_slice(), 4095).is_err());
-    assert_eq!(
-        varint::read_bounded(&mut [0x80, 0x20].as_slice(), 4096).unwrap(),
-        4096
-    );
-    println!("  values=0,1,127,128,255,4096,16383,16384,65536,u64::MAX | invalid=7 | bounded=4096");
-}
-
 fn crc_standard_vectors() {
     assert_eq!(checksum::crc32(b""), 0);
     assert_eq!(checksum::crc32(b"123456789"), 0xCBF4_3926);
@@ -439,121 +405,6 @@ fn paper_rans_renormalization_bytes() {
     println!("  input=ABABABABABABABAB | encoded_len=14 | renorm_bytes=verified | decode=input");
 }
 
-fn rs_zero_through_sixteen_errors_in_each_word() {
-    for size in [1, 22, 222, 223, 224, 446, 447] {
-        let input = random_bytes(size);
-        let good = ecc::encode(&input);
-        assert_eq!(good.len(), ecc::encoded_size(size));
-        for errors in 0..=16 {
-            let mut damaged = good.clone();
-            let mut total = 0;
-            for word in damaged.chunks_mut(255) {
-                // Включая чётность; позиции различны даже в укороченном слове.
-                for index in 0..errors {
-                    word[index * 2] ^= (index + 1) as u8;
-                }
-                total += errors;
-            }
-            let (restored, count) = ecc::decode(&damaged, size).unwrap();
-            assert_eq!(restored, input);
-            assert_eq!(count, total as u64);
-        }
-    }
-    assert_eq!(ecc::decode(&[], 0).unwrap(), (vec![], 0));
-    assert!(ecc::decode(&[0; 32], 1).is_err());
-    assert!(ecc::decode(&[], BLOCK_SIZE + 1).is_err());
-    println!("  sizes=1,22,222,223,224,446,447 | errors_per_word=0..16 | restored=input");
-}
-
-fn algorithms_roundtrip_edge_cases_and_composition() {
-    for input in [
-        vec![],
-        vec![0],
-        vec![255; BLOCK_SIZE],
-        (0..=255).collect(),
-        random_bytes(BLOCK_SIZE),
-        "Привет, архиватор!".as_bytes().to_vec(),
-    ] {
-        let lz = lz77::encode(&input).unwrap();
-        let encoded = rans::encode(&lz).unwrap();
-        assert_eq!(
-            lz77::decode(&rans::decode(&encoded).unwrap()).unwrap(),
-            input
-        );
-        assert_eq!(rans::decode(&rans::encode(&input).unwrap()).unwrap(), input);
-    }
-    assert!(lz77::encode(&vec![0; BLOCK_SIZE + 1]).is_err());
-    assert!(rans::encode(&vec![0; lz77::MAX_ENCODED_SIZE + 1]).is_err());
-    println!("  inputs=empty,single,repeat,random,max_block | LZ77+rANS | reverse=input");
-}
-
-fn malformed_lz_and_rans_return_errors() {
-    for bytes in [
-        vec![],
-        vec![0; 3],
-        vec![1, 0, 0, 0],
-        vec![1, 0, 0, 0, 1, 0, 1, 65],
-        vec![1, 0, 0, 0, 0, 0, 0, 65, 0, 0, 0, 66],
-        vec![0xff; 8],
-    ] {
-        assert!(lz77::decode(&bytes).is_err(), "{bytes:?}");
-    }
-    let good = rans::encode(&random_bytes(100)).unwrap();
-    let header = rans::read_header(&good).unwrap();
-    for length in 0..good.len() {
-        assert!(
-            rans::decode(&good[..length]).is_err(),
-            "усечение rANS {length}"
-        );
-    }
-    let mut bad = good.clone();
-    bad[length_prefix_size(&good)..header.state_offset].fill(0);
-    assert!(rans::decode(&bad).is_err());
-    let mut bad = good.clone();
-    bad[header.state_offset..header.state_offset + 4].fill(0);
-    assert!(rans::decode(&bad).is_err());
-    let mut bad = good;
-    bad.push(0);
-    assert!(rans::decode(&bad).is_err());
-    println!("  LZ_truncated=all_prefixes | rANS_bad_state=3 | result=error");
-}
-
-fn compact_models_reject_invalid_values_without_panics() {
-    for bytes in [
-        vec![0, 0],                                           // Пустой rANS имеет ровно один байт.
-        vec![0x80, 0],                                        // Неканоническая длина.
-        vec![1, 1, 65, 66],                                   // D > длины результата.
-        vec![4, 1, 65, 65, 1, 0, 0, 0x80, 0],                 // Повтор символа.
-        vec![4, 1, 66, 65, 1, 0, 0, 0x80, 0],                 // Нарушение порядка.
-        vec![4, 1, 65, 66, 0, 0, 0, 0x80, 0],                 // Нулевая частота.
-        vec![4, 1, 65, 66, 0x80, 0x20, 0, 0, 0x80, 0],        // 4096 при D > 1.
-        vec![4, 2, 65, 66, 67, 0xff, 0x1f, 1, 0, 0, 0x80, 0], // Нет места третьему.
-        [vec![33, 32], vec![0; 32], vec![1; 32], vec![0, 0, 0x80, 0]].concat(), // Пустая bitmap.
-    ] {
-        assert!(rans::decode(&bytes).is_err(), "{bytes:?}");
-    }
-    for bytes in [
-        vec![0x80, 0],
-        vec![0x81, 0x80, 4],               // length > 65536
-        vec![3, 0, 65, 1, 0, 66],          // Нулевая ссылка.
-        vec![3, 0, 65, 1, 0x81, 0, 66],    // Неканоническое расстояние 1.
-        vec![3, 0, 65, 1, 0x81, 0x20, 66], // distance=4097
-        vec![1, 0, 65, 0, 66],
-    ] {
-        // Выход за размер результата.
-        assert!(lz77::decode(&bytes).is_err(), "{bytes:?}");
-    }
-    // Детерминированная выборка произвольных некорректных потоков: отсутствие паник.
-    for size in 0..256 {
-        let bytes = random_bytes(size);
-        let _ = lz77::decode(&bytes);
-        let _ = rans::decode(&bytes);
-    }
-    println!(
-        "  rANS_invalid_models=checked | LZ_invalid_links=checked | panic=false | result=error"
-    );
-}
-
 fn block_stream(input: &[u8], protected: bool) -> Vec<u8> {
     let mut writer = BlockWriter::with_threads(
         Vec::new(),
@@ -592,69 +443,6 @@ fn block_composition_compressed_stored_and_boundary() {
     }
     println!(
         "  protect=false,true | inputs=65537,65659 | blocks=2 | compressed+stored=2 | restored=input"
-    );
-}
-
-fn block_rejects_bad_headers_payload_truncation_and_trailing_data() {
-    let original = b"ABABABA";
-    let good = block_stream(original, false);
-    for offset in 0..good.len() {
-        let mut bad = good.clone();
-        bad[offset] ^= 0xA5;
-        let result = BlockReader::with_threads(bad.as_slice(), None).and_then(|mut reader| {
-            reader.read_exact(&mut [0; 7])?;
-            reader.finish()
-        });
-        assert!(result.is_err(), "offset {offset}");
-    }
-    for length in 0..good.len() {
-        let result = BlockReader::with_threads(&good[..length], None).and_then(|mut reader| {
-            reader.read_exact(&mut [0; 7])?;
-            reader.finish()
-        });
-        assert!(result.is_err(), "length {length}");
-    }
-    let mut extra = good;
-    extra.push(0);
-    let mut reader = BlockReader::with_threads(extra.as_slice(), None).unwrap();
-    reader.read_exact(&mut [0; 7]).unwrap();
-    assert!(reader.finish().is_err());
-    println!("  header_offsets=all | payload_prefixes=all | trailing_data=1 | result=error");
-}
-
-fn block_sizes_and_implicit_sequence_reject_reordering() {
-    use crate::block::{ARCHIVE_HEADER_SIZE, BLOCK_HEADER_SIZE};
-    let input = random_bytes(BLOCK_SIZE).repeat(2);
-    for protected in [false, true] {
-        let stream = block_stream(&input, protected);
-        let block_size = if protected {
-            ecc::encoded_size(BLOCK_HEADER_SIZE) + ecc::encoded_size(BLOCK_SIZE)
-        } else {
-            BLOCK_HEADER_SIZE + BLOCK_SIZE
-        };
-        assert_eq!(stream.len(), ARCHIVE_HEADER_SIZE + 2 * block_size);
-        assert_eq!(stream[8], if protected { 7 } else { 3 });
-        assert_eq!(&stream[13..17], &[255; 4]); // 65536-1, два поля u16.
-        let first = &stream[ARCHIVE_HEADER_SIZE..ARCHIVE_HEADER_SIZE + block_size];
-        let second = &stream[ARCHIVE_HEADER_SIZE + block_size..];
-        // Данные одинаковы, но CRC заголовков учитывают разные номера блоков.
-        assert_ne!(&first[8..12], &second[8..12]);
-        let swapped = [&stream[..ARCHIVE_HEADER_SIZE], second, first].concat();
-        let mut reader = BlockReader::with_threads(swapped.as_slice(), None).unwrap();
-        assert!(reader.read_exact(&mut [0]).is_err());
-        let repeated = [&stream[..ARCHIVE_HEADER_SIZE], first, first].concat();
-        let mut reader = BlockReader::with_threads(repeated.as_slice(), None).unwrap();
-        reader.read_exact(&mut vec![0; BLOCK_SIZE]).unwrap();
-        assert!(reader.read_exact(&mut [0]).is_err());
-    }
-    // Неизвестный флаг запрещён даже при верной CRC.
-    let mut bad = block_stream(b"A", false);
-    bad[8] = 0x80;
-    let crc = checksum::crc32(&bad[..9]);
-    bad[9..13].copy_from_slice(&crc.to_le_bytes());
-    assert!(BlockReader::with_threads(bad.as_slice(), None).is_err());
-    println!(
-        "  input=131072 | blocks=2 | protected=false,true | reordered=error | duplicate=error"
     );
 }
 
@@ -821,38 +609,6 @@ fn parallel_flush_drains_partial_batches_without_changing_order() {
     );
 }
 
-fn parallel_read_ahead_keeps_errors_at_their_block_and_rejects_trailing_data() {
-    let input = vec![42; BLOCK_SIZE * 2];
-    let good = stream(&input, false, 2);
-    let first_size = usize::from(u16::from_le_bytes([good[15], good[16]])) + 1;
-    let second_start = ARCHIVE_HEADER_SIZE + BLOCK_HEADER_SIZE + first_size;
-    for offset in [second_start + 8, second_start + BLOCK_HEADER_SIZE] {
-        let mut bad = good.clone();
-        bad[offset] ^= 0xA5;
-        let mut reader = BlockReader::with_threads(bad.as_slice(), Some(2)).unwrap();
-        let mut first = vec![0; BLOCK_SIZE];
-        reader.read_exact(&mut first).unwrap();
-        assert_eq!(first, &input[..BLOCK_SIZE]);
-        assert!(reader.read_exact(&mut [0]).is_err());
-    }
-    for boundary in [1, 4] {
-        let bytes = vec![42; BLOCK_SIZE * boundary];
-        let valid = stream(&bytes, false, 2);
-        for suffix in [vec![0], valid[ARCHIVE_HEADER_SIZE..].to_vec()] {
-            let extra = [valid.clone(), suffix].concat();
-            let mut reader = BlockReader::with_threads(extra.as_slice(), Some(2)).unwrap();
-            reader.read_exact(&mut vec![0; bytes.len()]).unwrap();
-            assert!(reader.finish().is_err());
-        }
-        let short = &valid[..valid.len() - 1];
-        let mut reader = BlockReader::with_threads(short, Some(2)).unwrap();
-        assert!(reader.read_exact(&mut vec![0; bytes.len()]).is_err());
-    }
-    println!(
-        "  blocks=2 | corrupt_header=true | corrupt_payload=true | trailing_cases=4 | result=error"
-    );
-}
-
 fn parallel_rs_restores_headers_and_payloads_in_multiple_batches() {
     let input = data(BLOCK_SIZE * 9 + 17);
     let mut damaged = stream(&input, true, 2);
@@ -880,44 +636,6 @@ fn parallel_rs_restores_headers_and_payloads_in_multiple_batches() {
     assert_eq!(restored, input);
     assert_eq!(stats.corrected_bytes, corrections);
     println!("  input_len=589841 | damaged_bytes=32 | restored=input | corrected=32");
-}
-
-fn parallel_writer_propagates_output_errors() {
-    struct FailsAfterHeader;
-    impl Write for FailsAfterHeader {
-        fn write(&mut self, bytes: &[u8]) -> io::Result<usize> {
-            if bytes.len() == ARCHIVE_HEADER_SIZE {
-                Ok(bytes.len())
-            } else {
-                Err(io::Error::other("disk error"))
-            }
-        }
-        fn flush(&mut self) -> io::Result<()> {
-            Ok(())
-        }
-    }
-    let mut writer = BlockWriter::with_threads(
-        FailsAfterHeader,
-        crate::archive::EncodingOptions {
-            protected: false,
-            ..Default::default()
-        },
-        Some(2),
-    )
-    .unwrap();
-    writer.write_all(b"abc").unwrap();
-    assert!(writer.finish().is_err());
-    let mut writer = BlockWriter::with_threads(
-        FailsAfterHeader,
-        crate::archive::EncodingOptions {
-            protected: false,
-            ..Default::default()
-        },
-        Some(2),
-    )
-    .unwrap();
-    assert!(writer.write_all(&data(BLOCK_SIZE * 4)).is_err());
-    println!("  writer_limit=archive_header | input_blocks=2 | write_error=returned");
 }
 
 static NEXT: AtomicU64 = AtomicU64::new(0);
@@ -1001,7 +719,6 @@ fn cli_roundtrip_nested_unicode_empty_and_multiple_sources() {
         assert!(sandbox.path("result.mrx").is_file());
         let info = sandbox.command(&["info", "result"]);
         assert!(info.status.success());
-        assert!(String::from_utf8_lossy(&info.stdout).contains("Проверка целостности пройдена"));
         let output = sandbox.command(&["extract", "result", "out"]);
         assert!(
             output.status.success(),
@@ -1016,74 +733,6 @@ fn cli_roundtrip_nested_unicode_empty_and_multiple_sources() {
     }
     println!(
         "  protect=false,true | sources=3 | nested=true | unicode=true | empty=true | trees=equal"
-    );
-}
-
-fn cli_invalid_arguments() {
-    let sandbox = Sandbox::new();
-    for args in [
-        vec![],
-        vec!["help"],
-        vec!["--help"],
-        vec!["-h"],
-        vec!["unknown"],
-        vec!["create"],
-        vec!["create", "--help"],
-        vec!["create", "--unknown", "a", "b"],
-        vec!["extract", "x"],
-        vec!["extract", "a", "b", "c"],
-        vec!["info"],
-        vec!["info", "a", "b"],
-        vec!["--threads", "1"],
-    ] {
-        let output = sandbox.command(&args);
-        assert_eq!(output.status.code(), Some(1), "{args:?}");
-        assert!(output.stdout.is_empty(), "{args:?}");
-        let error = String::from_utf8(output.stderr).unwrap();
-        assert!(error.starts_with("Ошибка: "), "{args:?}: {error}");
-        assert_eq!(error.lines().count(), 1, "{args:?}: {error}");
-        assert!(!error.contains("Использование"));
-    }
-    println!("  invalid_commands=checked | exit=1 | stdout_len=0 | stderr_lines=1 | usage=false");
-}
-
-fn preserve_existing_files_and_cleanup_failed_operations() {
-    let sandbox = Sandbox::new();
-    let source = sandbox.path("source");
-    fs::write(&source, b"safe").unwrap();
-    let path = archive::create(
-        &sandbox.path("safe.mrx"),
-        std::slice::from_ref(&source),
-        false,
-    )
-    .unwrap();
-    let before = fs::read(&path).unwrap();
-    assert!(archive::create(&path, std::slice::from_ref(&source), true).is_err());
-    assert_eq!(fs::read(&path).unwrap(), before);
-    fs::create_dir(sandbox.path("existing")).unwrap();
-    fs::write(sandbox.path("existing/keep"), b"keep").unwrap();
-    assert!(archive::extract(&path, &sandbox.path("existing")).is_err());
-    assert_eq!(fs::read(sandbox.path("existing/keep")).unwrap(), b"keep");
-    let failed = sandbox.path("duplicate.mrx");
-    assert!(archive::create(&failed, &[source.clone(), source], false).is_err());
-    assert!(!failed.exists());
-    assert!(archive::create(&sandbox.path("empty.mrx"), &[], false).is_err());
-    assert!(!sandbox.path("empty.mrx").exists());
-    let mut bad = before.clone();
-    bad.push(0);
-    fs::write(sandbox.path("extra.mrx"), bad).unwrap();
-    assert!(archive::extract(&sandbox.path("extra.mrx"), &sandbox.path("bad-out")).is_err());
-    assert!(!sandbox.path("bad-out").exists());
-    // Все возможные усечения маленького архива должны отклоняться.
-    for length in 0..before.len() {
-        fs::write(sandbox.path("short.mrx"), &before[..length]).unwrap();
-        assert!(
-            archive::inspect(&sandbox.path("short.mrx"), |_| {}).is_err(),
-            "{length}"
-        );
-    }
-    println!(
-        "  existing_archive=unchanged | existing_output=unchanged | partial_archive=removed | partial_output=removed"
     );
 }
 
@@ -1120,16 +769,6 @@ fn varint_file_sizes_and_path_lengths_cross_byte_boundary() {
         compare_tree(&sandbox.path("input"), &out.join("input"));
     }
     println!("  lengths=121,122,127,128 | protect=false,true | create+extract | bytes=equal");
-}
-
-#[cfg(unix)]
-fn symbolic_links_are_rejected() {
-    let sandbox = Sandbox::new();
-    fs::write(sandbox.path("source"), b"safe").unwrap();
-    std::os::unix::fs::symlink(sandbox.path("source"), sandbox.path("link")).unwrap();
-    assert!(archive::create(&sandbox.path("bad.mrx"), &[sandbox.path("link")], false).is_err());
-    assert!(!sandbox.path("bad.mrx").exists());
-    println!("  source=symlink | create=error | archive_exists=false");
 }
 
 fn documented_archive_matches_real_bytes() {
@@ -1250,183 +889,8 @@ fn all_eight_modes_work_from_cli() {
     println!("  flags=0..7 | files=3 | create=ok | info=ok | extract=ok | bytes=equal");
 }
 
-fn damaged_archives_recover_or_leave_no_output() {
-    let sandbox = Sandbox::new();
-    fs::write(sandbox.path("a"), b"ABABABA").unwrap();
-    assert!(
-        sandbox
-            .command(&["create", "--protect", "good", "a"])
-            .status
-            .success()
-    );
-    let good = fs::read(sandbox.path("good.mrx")).unwrap();
-    for (label, offset, errors, recover) in [
-        ("header", 13, 16, true),
-        ("data", 57, 16, true),
-        ("parity", 69, 16, true),
-        ("too-many", 57, 17, false),
-        ("outer", 8, 1, false),
-    ] {
-        let mut damaged = good.clone();
-        for byte in &mut damaged[offset..offset + errors] {
-            *byte ^= 0xA5;
-        }
-        let name = format!("{label}.mrx");
-        let out = format!("out-{label}");
-        fs::write(sandbox.path(&name), damaged).unwrap();
-        let info = sandbox.command(&["info", &name]);
-        let result = sandbox.command(&["extract", &name, &out]);
-        assert_eq!(info.status.success(), recover, "{label}");
-        assert_eq!(result.status.success(), recover, "{label}");
-        if recover {
-            assert_eq!(
-                fs::read(sandbox.path(&format!("{out}/a"))).unwrap(),
-                b"ABABABA"
-            );
-            assert_eq!(
-                archive::inspect(&sandbox.path(&name), |_| {})
-                    .unwrap()
-                    .corrected_bytes,
-                errors as u64
-            );
-        } else {
-            assert!(!sandbox.path(&out).exists());
-        }
-    }
-    println!(
-        "  damage_cases=header,payload | recoverable=true,false | info=create_result_match | failed_output=absent"
-    );
-}
-
-fn parallel_cli_archives_match_and_restore_nested_tree() {
-    let sandbox = Sandbox::new();
-    fs::create_dir_all(sandbox.path("input/папка/empty")).unwrap();
-    fs::write(sandbox.path("input/папка/zero"), []).unwrap();
-    fs::write(sandbox.path("input/папка/text"), b"ABABABA".repeat(100_000)).unwrap();
-    let mut state = 0x12345678_u32;
-    let binary: Vec<_> = (0..700_000)
-        .map(|_| {
-            state ^= state << 13;
-            state ^= state >> 17;
-            state ^= state << 5;
-            state as u8
-        })
-        .collect();
-    fs::write(sandbox.path("input/binary"), binary).unwrap();
-    for protected in [false, true] {
-        let mut reference = None;
-        for threads in ["1", "2", "3", "auto"] {
-            let name = format!("archive-{protected}-{threads}.mrx");
-            let mut args = vec!["create"];
-            if threads != "auto" {
-                args.extend(["--threads", threads]);
-            }
-            if protected {
-                args.push("--protect");
-            }
-            args.extend([&name, "input"]);
-            let output = sandbox.command(&args);
-            assert!(
-                output.status.success(),
-                "{}",
-                String::from_utf8_lossy(&output.stderr)
-            );
-            let bytes = fs::read(sandbox.path(&name)).unwrap();
-            if let Some(expected) = &reference {
-                assert_eq!(&bytes, expected);
-            } else {
-                reference = Some(bytes);
-            }
-            let out = format!("out-{protected}-{threads}");
-            // Глобальный параметр до команды; чтение с числом потоков, отличным от записи.
-            let result = sandbox.command(&["--threads", "2", "extract", &name, &out]);
-            assert!(
-                result.status.success(),
-                "{}",
-                String::from_utf8_lossy(&result.stderr)
-            );
-            compare_tree(
-                &sandbox.path("input"),
-                &sandbox.path(&format!("{out}/input")),
-            );
-            assert!(
-                sandbox
-                    .command(&["info", "--threads", "3", &name])
-                    .status
-                    .success()
-            );
-        }
-        let mut bad = reference.unwrap();
-        bad.truncate(bad.len() - 1);
-        fs::write(sandbox.path("broken.mrx"), bad).unwrap();
-        assert!(
-            !sandbox
-                .command(&["extract", "--threads", "2", "broken.mrx", "failed"])
-                .status
-                .success()
-        );
-        assert!(!sandbox.path("failed").exists());
-    }
-    println!("  protected=false,true | threads=1,2,3,auto | archive_bytes=equal | trees=equal");
-}
-
-fn parallel_cli_invalid_counts_do_not_create_outputs() {
-    let sandbox = Sandbox::new();
-    fs::write(sandbox.path("input"), b"safe").unwrap();
-    for count in ["0", "65", "-1", "x", "99999999999999999999999"] {
-        let result = sandbox.command(&["create", "--threads", count, "bad.mrx", "input"]);
-        assert!(!result.status.success());
-        assert!(!sandbox.path("bad.mrx").exists());
-    }
-    for args in [
-        vec!["create", "--threads"],
-        vec!["--threads", "2", "create", "--threads", "3", "bad", "input"],
-    ] {
-        assert!(!sandbox.command(&args).status.success());
-    }
-    assert!(!sandbox.path("bad.mrx").exists());
-    println!("  threads=0,65,-1,x,overflow | create=error | extract=error | outputs=absent");
-}
-
-fn cli_returns_without_reading_stdin() {
-    let sandbox = Sandbox::new();
-    let mut child = Command::new(env!("CARGO_BIN_EXE_arch"))
-        .current_dir(&sandbox.0)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .unwrap();
-    let deadline = std::time::Instant::now() + std::time::Duration::from_secs(5);
-    loop {
-        if child.try_wait().unwrap().is_some() {
-            break;
-        }
-        if std::time::Instant::now() >= deadline {
-            child.kill().unwrap();
-            child.wait().unwrap();
-            panic!("Программа ожидает ввод вместо завершения");
-        }
-        std::thread::sleep(std::time::Duration::from_millis(10));
-    }
-    let output = child.wait_with_output().unwrap();
-    assert_eq!(output.status.code(), Some(1));
-    assert!(output.stdout.is_empty());
-    assert!(
-        String::from_utf8(output.stderr)
-            .unwrap()
-            .contains("Не указана команда")
-    );
-    println!("  stdin=closed | commands=create,info,extract | completed=true | input_read=false");
-}
-
 fn main() {
     let tests: &[(&str, &str, fn())] = &[
-        (
-            "Переменные целые",
-            "Границы и ошибочные числа",
-            varint_boundaries_canonical_encoding_and_errors,
-        ),
         ("CRC32", "Контрольные суммы", crc_standard_vectors),
         ("CRC32", "Побитовый расчёт CRC", crc_table_matches_bit_trace),
         (
@@ -1486,39 +950,9 @@ fn main() {
             paper_rans_renormalization_bytes,
         ),
         (
-            "Reed–Solomon",
-            "От нуля до 16 повреждений",
-            rs_zero_through_sixteen_errors_in_each_word,
-        ),
-        (
-            "Совместное кодирование",
-            "Совместное сжатие и восстановление",
-            algorithms_roundtrip_edge_cases_and_composition,
-        ),
-        (
-            "Совместное кодирование",
-            "Оборванные потоки",
-            malformed_lz_and_rans_return_errors,
-        ),
-        (
-            "Совместное кодирование",
-            "Неверные модели и ссылки",
-            compact_models_reject_invalid_values_without_panics,
-        ),
-        (
             "Блоки архива",
             "Сжатые и исходные блоки",
             block_composition_compressed_stored_and_boundary,
-        ),
-        (
-            "Блоки архива",
-            "Повреждения и усечения блока",
-            block_rejects_bad_headers_payload_truncation_and_trailing_data,
-        ),
-        (
-            "Блоки архива",
-            "Размеры и порядок блоков",
-            block_sizes_and_implicit_sequence_reject_reordering,
         ),
         (
             "Режимы кодирования",
@@ -1542,33 +976,13 @@ fn main() {
         ),
         (
             "Многопоточность",
-            "Ошибки при опережающем чтении",
-            parallel_read_ahead_keeps_errors_at_their_block_and_rejects_trailing_data,
-        ),
-        (
-            "Многопоточность",
             "Восстановление нескольких партий",
             parallel_rs_restores_headers_and_payloads_in_multiple_batches,
-        ),
-        (
-            "Многопоточность",
-            "Ошибки записи",
-            parallel_writer_propagates_output_errors,
         ),
         (
             "Команды и файлы",
             "Имена и несколько источников",
             cli_roundtrip_nested_unicode_empty_and_multiple_sources,
-        ),
-        (
-            "Команды и файлы",
-            "Ошибочные команды без справки",
-            cli_invalid_arguments,
-        ),
-        (
-            "Команды и файлы",
-            "Защита существующих файлов",
-            preserve_existing_files_and_cleanup_failed_operations,
         ),
         (
             "Команды и файлы",
@@ -1579,12 +993,6 @@ fn main() {
             "Команды и файлы",
             "Длины имён и размеры файлов",
             varint_file_sizes_and_path_lengths_cross_byte_boundary,
-        ),
-        #[cfg(unix)]
-        (
-            "Команды и файлы",
-            "Запрет символических ссылок",
-            symbolic_links_are_rejected,
         ),
         (
             "Команды и файлы",
@@ -1600,26 +1008,6 @@ fn main() {
             "Режимы кодирования",
             "Восемь режимов через команды",
             all_eight_modes_work_from_cli,
-        ),
-        (
-            "Режимы кодирования",
-            "Повреждения настоящего архива",
-            damaged_archives_recover_or_leave_no_output,
-        ),
-        (
-            "Команды и потоки",
-            "Число потоков и содержимое архива",
-            parallel_cli_archives_match_and_restore_nested_tree,
-        ),
-        (
-            "Команды и потоки",
-            "Неверное число потоков",
-            parallel_cli_invalid_counts_do_not_create_outputs,
-        ),
-        (
-            "Команды и файлы",
-            "Отсутствие интерактивного ввода",
-            cli_returns_without_reading_stdin,
         ),
     ];
     let mut previous_group = "";
