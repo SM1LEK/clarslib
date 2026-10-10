@@ -5,7 +5,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="n1" value="Исходный блок&#10;1…65536 байт" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
+        <mxCell id="n1" value="Исходный блок&#10;1..=65536 байт" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="405" y="40" width="470" height="80" />
         </mxCell>
         <mxCell id="n2" value="Поиск и запись троек LZ77&#10;Таблицы позиций" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -144,10 +144,10 @@
         <mxCell id="n7" value="6&#10;A" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="928" y="40" width="148" height="85" />
         </mxCell>
-        <mxCell id="n8" value="d = 2; ℓ = 4&#10;AB → ABA → ABAB → ABABA → ABABAB → ABABABA" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="d = 2; l = 4&#10;AB =&gt; ABA =&gt; ABAB =&gt; ABABA =&gt; ABABAB =&gt; ABABABA" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="280" width="1036" height="75" />
         </mxCell>
-        <mxCell id="n9" value="Тройки (d, ℓ, c): (0, 0, A), (0, 0, B), (2, 4, A)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n9" value="Тройки (d, l, c): (0, 0, A), (0, 0, B), (2, 4, A)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="385" width="1036" height="50" />
         </mxCell>
         <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#1f1e24;exitX=0.5;exitY=1.0;entryX=0.5;entryY=1.0;" edge="1" source="n1" target="n3" parent="1">
@@ -190,10 +190,10 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="n1" value="A: 0…2047; f(A) = 2048" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n1" value="A: 0..=2047; f(A) = 2048" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="40" width="520" height="70" />
         </mxCell>
-        <mxCell id="n2" value="B: 2048…4095; f(B) = 2048" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n2" value="B: 2048..=4095; f(B) = 2048" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="560" y="40" width="520" height="70" />
         </mxCell>
         <mxCell id="n3" value="Кодирование" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=text;strokeColor=none;fillColor=none;fontStyle=1;" vertex="1" parent="1">
@@ -202,28 +202,28 @@
         <mxCell id="n4" value="Декодирование" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=text;strokeColor=none;fillColor=none;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="620" y="140" width="450" height="44" />
         </mxCell>
-        <mxCell id="n5" value="B: 8388608 → 16779264" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n5" value="B: 8388608 =&gt; 16779264" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="210" width="500" height="62" />
         </mxCell>
-        <mxCell id="n6" value="A: 134238208 → 67119104" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n6" value="A: 134238208 =&gt; 67119104" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="580" y="210" width="500" height="62" />
         </mxCell>
-        <mxCell id="n7" value="A: 16779264 → 33558528" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n7" value="A: 16779264 =&gt; 33558528" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="310" width="500" height="62" />
         </mxCell>
-        <mxCell id="n8" value="B: 67119104 → 33558528" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="B: 67119104 =&gt; 33558528" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="580" y="310" width="500" height="62" />
         </mxCell>
-        <mxCell id="n9" value="B: 33558528 → 67119104" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n9" value="B: 33558528 =&gt; 67119104" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="410" width="500" height="62" />
         </mxCell>
-        <mxCell id="n10" value="A: 33558528 → 16779264" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n10" value="A: 33558528 =&gt; 16779264" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="580" y="410" width="500" height="62" />
         </mxCell>
-        <mxCell id="n11" value="A: 67119104 → 134238208" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n11" value="A: 67119104 =&gt; 134238208" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="510" width="500" height="62" />
         </mxCell>
-        <mxCell id="n12" value="B: 16779264 → 8388608" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n12" value="B: 16779264 =&gt; 8388608" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="580" y="510" width="500" height="62" />
         </mxCell>
         <mxCell id="n13" value="x = floor(x / f) × 4096&#10;+ (x mod f) + c" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -290,31 +290,31 @@
         <mxCell id="n1" value="Заголовок архива: 13 байт" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="30" width="1040" height="55" />
         </mxCell>
-        <mxCell id="n2" value="0…7: CLARSLIB" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n2" value="0..=7: CLARSLIB" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="110" width="640" height="80" />
         </mxCell>
         <mxCell id="n3" value="8:&#10;Ф" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=18;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="680" y="110" width="80" height="80" />
         </mxCell>
-        <mxCell id="n4" value="9…12: CRC32" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n4" value="9..=12: CRC32" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="760" y="110" width="320" height="80" />
         </mxCell>
-        <mxCell id="n5" value="Заголовок блока: 12 байт&#10;N — исходный размер; S — сохранённый размер" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n5" value="Заголовок блока: 12 байт&#10;N - исходный размер; S - сохранённый размер" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="225" width="1040" height="80" />
         </mxCell>
-        <mxCell id="n6" value="0…1&#10;N − 1" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n6" value="0..=1&#10;N − 1" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="335" width="174" height="80" />
         </mxCell>
-        <mxCell id="n7" value="2…3&#10;S − 1" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n7" value="2..=3&#10;S − 1" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="214" y="335" width="174" height="80" />
         </mxCell>
-        <mxCell id="n8" value="4…7&#10;CRC32 данных" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="4..=7&#10;CRC32 данных" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="388" y="335" width="346" height="80" />
         </mxCell>
-        <mxCell id="n9" value="8…11&#10;CRC32 заголовка" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n9" value="8..=11&#10;CRC32 заголовка" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="734" y="335" width="346" height="80" />
         </mxCell>
-        <mxCell id="n10" value="Архив: заголовок → блок 0 → блок 1 → … → последний блок" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n10" value="Архив: заголовок =&gt; блок 0 =&gt; блок 1 =&gt; ..= =&gt; последний блок" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="455" width="1040" height="70" />
         </mxCell>
         <mxCell id="n11" value="Без RS: 12 + S байт&#10;С RS: 44 + S + 32 × ceil(S / 223) байт" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -355,7 +355,7 @@
         <mxCell id="n9" value="0: LZ77" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="950" y="90" width="130" height="55" />
         </mxCell>
-        <mxCell id="n10" value="Биты 0…2: 1 — включён; 0 — выключен. Биты 3…7: 0." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n10" value="Биты 0..=2: 1 - включён; 0 - выключен. Биты 3..=7: 0." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="165" width="1040" height="48" />
         </mxCell>
         <mxCell id="n11" value="Varint" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -415,7 +415,7 @@
         <mxCell id="n29" value="b0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="950" y="500" width="130" height="55" />
         </mxCell>
-        <mxCell id="n30" value="D = значение + 1; диапазон D: 1…256." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n30" value="D = значение + 1; диапазон D: 1..=256." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="40" y="575" width="1040" height="48" />
         </mxCell>
         <mxCell id="n31" value="Битовая карта rANS" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -462,7 +462,7 @@
         <mxCell id="n2" value="Начало блока&#10;Записать длину N как varint.&#10;position = 0; новый словарь." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="100" width="460" height="160" />
         </mxCell>
-        <mxCell id="n3" value="Найти лучшую ссылку&#10;Окно 4096; длина до 255.&#10;Оставить один байт для литерала.&#10;При равной длине — ближайшая ссылка." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n3" value="Найти лучшую ссылку&#10;Окно 4096; длина до 255.&#10;Оставить один байт для литерала.&#10;При равной длине - ближайшая ссылка." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="310" width="460" height="160" />
         </mxCell>
         <mxCell id="n4" value="Записать тройку&#10;Длина, расстояние, следующий байт.&#10;При длине 0 расстояние не пишется." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -477,7 +477,7 @@
         <mxCell id="n7" value="Декодирование" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=text;strokeColor=none;fillColor=none;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="24" width="450" height="44" />
         </mxCell>
-        <mxCell id="n8" value="Прочитать поток&#10;Прочитать N один раз; затем тройку.&#10;При ненулевой длине — расстояние.&#10;Прочитать следующий явный байт." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="Прочитать поток&#10;Прочитать N один раз; затем тройку.&#10;При ненулевой длине - расстояние.&#10;Прочитать следующий явный байт." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="100" width="460" height="160" />
         </mxCell>
         <mxCell id="n9" value="Проверить ссылку&#10;Расстояние не больше окна и выхода.&#10;Ненулевая ссылка: расстояние &gt; 0.&#10;Длина + литерал не выходят за N." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -533,13 +533,13 @@
         <mxCell id="n3" value="Взять символ с конца&#10;Обрабатывать вход справа налево.&#10;Для символа взять f(s) и c(s)." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="310" width="460" height="160" />
         </mxCell>
-        <mxCell id="n4" value="Перенормировать состояние&#10;Пока x ≥ 524288 × f(s):&#10;выдать x mod 256; x = floor(x / 256)." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n4" value="Перенормировать состояние&#10;Пока x &gt;= 524288 × f(s):&#10;выдать x mod 256; x = floor(x / 256)." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="520" width="460" height="160" />
         </mxCell>
         <mxCell id="n5" value="Закодировать символ&#10;x = floor(x / f(s)) × 4096&#10;+ (x mod f(s)) + c(s)&#10;Повторять шаги 2–4 для всего входа." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="730" width="460" height="160" />
         </mxCell>
-        <mxCell id="n6" value="Записать выходной поток&#10;Длина, модель, конечное x (LE).&#10;Выданные байты — в обратном порядке." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n6" value="Записать выходной поток&#10;Длина, модель, конечное x (LE).&#10;Выданные байты - в обратном порядке." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="940" width="460" height="160" />
         </mxCell>
         <mxCell id="n7" value="Декодирование" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=26;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=text;strokeColor=none;fillColor=none;fontStyle=1;" vertex="1" parent="1">
@@ -548,7 +548,7 @@
         <mxCell id="n8" value="Прочитать модель и состояние&#10;Восстановить f(s), c(s) и состояние x.&#10;Построить таблицу на 4096 ячеек." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="100" width="460" height="160" />
         </mxCell>
-        <mxCell id="n9" value="Найти и вывести символ&#10;q = x mod 4096.&#10;Выбрать s: c(s) ≤ q &lt; c(s) + f(s).&#10;Добавить s к результату." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n9" value="Найти и вывести символ&#10;q = x mod 4096.&#10;Выбрать s: c(s) &lt;= q &lt; c(s) + f(s).&#10;Добавить s к результату." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="310" width="460" height="160" />
         </mxCell>
         <mxCell id="n10" value="Обратить переход&#10;x = f(s) × floor(x / 4096)&#10;+ q − c(s)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -687,7 +687,7 @@
         <mxCell id="n11" value="Восстановить исходный блок&#10;Для сжатого блока: rANS, затем LZ77.&#10;Декодировать включённые этапы." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="730" width="460" height="160" />
         </mxCell>
-        <mxCell id="n12" value="Проверить результат&#10;Длина и CRC32 исходного блока.&#10;Для заголовка блока — собственная&#10;CRC32." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n12" value="Проверить результат&#10;Длина и CRC32 исходного блока.&#10;Для заголовка блока - собственная&#10;CRC32." style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="940" width="460" height="160" />
         </mxCell>
         <mxCell id="e0" value="" style="edgeStyle=none;rounded=0;html=0;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;endArrow=block;endFill=1;strokeWidth=1.5;labelBackgroundColor=#1f1e24;exitX=0.5;exitY=1.0;entryX=0.5;entryY=0.0;" edge="1" source="n2" target="n3" parent="1">
@@ -731,7 +731,7 @@
         <mxCell id="n3" value="Начало" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;rounded=1;arcSize=50;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="190" y="100" width="240" height="50" />
         </mxCell>
-        <mxCell id="n4" value="Вход: N байт&#10;0 ≤ N ≤ 65536" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
+        <mxCell id="n4" value="Вход: N байт&#10;0 &lt;= N &lt;= 65536" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="195" width="460" height="75" />
         </mxCell>
         <mxCell id="n5" value="Записать N (varint); p = 0&#10;Создать пустые таблицы поиска" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -743,22 +743,22 @@
         <mxCell id="n7" value="limit = min(255, N − p − 1)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="635" width="460" height="65" />
         </mxCell>
-        <mxCell id="n8" value="Найти самое длинное совпадение&#10;в окне до 4096 байт&#10;Получить ℓ и d; нет совпадения: ℓ = 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="Найти самое длинное совпадение&#10;в окне до 4096 байт&#10;Получить l и d; нет совпадения: l = 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="755" width="460" height="115" />
         </mxCell>
-        <mxCell id="n9" value="Есть совпадение?&#10;ℓ &gt; 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n9" value="Есть совпадение?&#10;l &gt; 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="930" width="460" height="105" />
         </mxCell>
         <mxCell id="n10" value="Записать длину 0&#10;Расстояние не писать" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=19;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="35" y="1095" width="255" height="95" />
         </mxCell>
-        <mxCell id="n11" value="Записать ℓ и d&#10;Длина — байт; d — varint" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=19;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n11" value="Записать l и d&#10;Длина - байт; d - varint" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=19;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="330" y="1095" width="255" height="95" />
         </mxCell>
-        <mxCell id="n12" value="Записать явный байт&#10;c = вход[p + ℓ]" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n12" value="Записать явный байт&#10;c = вход[p + l]" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="1250" width="460" height="85" />
         </mxCell>
-        <mxCell id="n13" value="next = p + ℓ + 1&#10;Внести позиции p…next − 1&#10;в таблицы поиска; p = next" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n13" value="next = p + l + 1&#10;Внести позиции p..=next − 1&#10;в таблицы поиска; p = next" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="1390" width="460" height="110" />
         </mxCell>
         <mxCell id="n14" value="Выход: N и тройки" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
@@ -773,22 +773,22 @@
         <mxCell id="n17" value="Вход: LZ77-поток" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="195" width="460" height="75" />
         </mxCell>
-        <mxCell id="n18" value="Проверить размер потока&#10;Прочитать N: 0 ≤ N ≤ 65536&#10;R = пустой список" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n18" value="Проверить размер потока&#10;Прочитать N: 0 &lt;= N &lt;= 65536&#10;R = пустой список" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="320" width="460" height="115" />
         </mxCell>
         <mxCell id="n19" value="Есть ещё тройка?&#10;Остались байты входа" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="495" width="460" height="105" />
         </mxCell>
-        <mxCell id="n20" value="Прочитать ℓ; если ℓ &gt; 0, прочитать d&#10;Иначе d = 0; прочитать c" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n20" value="Прочитать l; если l &gt; 0, прочитать d&#10;Иначе d = 0; прочитать c" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="660" width="460" height="90" />
         </mxCell>
-        <mxCell id="n21" value="Тройка допустима?&#10;ℓ &gt; 0: 1 ≤ d ≤ min(4096, len(R))&#10;len(R) + ℓ + 1 ≤ N" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=19;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n21" value="Тройка допустима?&#10;l &gt; 0: 1 &lt;= d &lt;= min(4096, len(R))&#10;len(R) + l + 1 &lt;= N" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=19;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="810" width="460" height="140" />
         </mxCell>
         <mxCell id="n22" value="j = 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="1005" width="460" height="55" />
         </mxCell>
-        <mxCell id="n23" value="Нужно ещё копировать?&#10;j &lt; ℓ" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n23" value="Нужно ещё копировать?&#10;j &lt; l" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="1120" width="460" height="105" />
         </mxCell>
         <mxCell id="n24" value="Добавить в R байт R[len(R) − d]&#10;j = j + 1" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -985,13 +985,13 @@
         <mxCell id="n5" value="Нормировать f: сумма = 4096&#10;Построить начала интервалов c&#10;x = L; i = N − 1; B = пустой список" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="335" width="460" height="115" />
         </mxCell>
-        <mxCell id="n6" value="Остались символы?&#10;i ≥ 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n6" value="Остались символы?&#10;i &gt;= 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="520" width="460" height="105" />
         </mxCell>
         <mxCell id="n7" value="s = вход[i]&#10;f = f(s); c = c(s)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="695" width="460" height="85" />
         </mxCell>
-        <mxCell id="n8" value="Выгрузить байт из x?&#10;x ≥ 524288 × f" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n8" value="Выгрузить байт из x?&#10;x &gt;= 524288 × f" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="850" width="460" height="105" />
         </mxCell>
         <mxCell id="n9" value="Добавить в B байт x mod 256&#10;x = floor(x / 256)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -1018,7 +1018,7 @@
         <mxCell id="n16" value="Прочитать N, модель и x&#10;Проверить длины и частоты" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="335" width="460" height="85" />
         </mxCell>
-        <mxCell id="n17" value="Заголовок допустим?&#10;L ≤ x &lt; 256L" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n17" value="Заголовок допустим?&#10;L &lt;= x &lt; 256L" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="490" width="460" height="105" />
         </mxCell>
         <mxCell id="n18" value="Построить таблицу символов&#10;k = 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -1027,7 +1027,7 @@
         <mxCell id="n19" value="Выдано N байт?&#10;k = N" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="810" width="460" height="105" />
         </mxCell>
-        <mxCell id="n20" value="q = x mod 4096&#10;Найти s: c(s) ≤ q &lt; c(s) + f(s)&#10;Выдать s&#10;x = f(s) × floor(x / 4096) + q − c(s)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n20" value="q = x mod 4096&#10;Найти s: c(s) &lt;= q &lt; c(s) + f(s)&#10;Выдать s&#10;x = f(s) × floor(x / 4096) + q − c(s)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=20;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="980" width="460" height="130" />
         </mxCell>
         <mxCell id="n21" value="Вернуть байт в x?&#10;x &lt; L" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
@@ -1205,7 +1205,7 @@
         <mxCell id="n3" value="Начало" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;rounded=1;arcSize=50;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="190" y="100" width="240" height="50" />
         </mxCell>
-        <mxCell id="n4" value="Вход: S байт; 0 ≤ S ≤ 65536" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
+        <mxCell id="n4" value="Вход: S байт; 0 &lt;= S &lt;= 65536" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=24;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="200" width="460" height="75" />
         </mxCell>
         <mxCell id="n5" value="Создать Encoder(32)&#10;p = 0; R = пусто" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -1217,10 +1217,10 @@
         <mxCell id="n7" value="Остались данные?&#10;p &lt; S" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="615" width="460" height="105" />
         </mxCell>
-        <mxCell id="n8" value="k = min(223, S − p)&#10;m = данные[p…p + k]" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
+        <mxCell id="n8" value="k = min(223, S − p)&#10;m = данные[p..=p + k - 1]" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="790" width="460" height="85" />
         </mxCell>
-        <mxCell id="n9" value="Вычислить 32 проверочных байта&#10;r(z) = (m(z) × z³²) mod g(z)&#10;Операции в GF(256)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=process;" vertex="1" parent="1">
+        <mxCell id="n9" value="Вычислить 32 проверочных байта&#10;r(z) = (m(z) × z^32) mod g(z)&#10;Операции в GF(256)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=process;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="80" y="945" width="460" height="110" />
         </mxCell>
         <mxCell id="n10" value="Собрать кодовое слово:&#10;k исходных байтов&#10;+ 32 проверочных байта" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
@@ -1247,7 +1247,7 @@
         <mxCell id="n17" value="Рассчитать E(S)&#10;R = пусто; C = 0" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="335" width="460" height="85" />
         </mxCell>
-        <mxCell id="n18" value="Размеры допустимы?&#10;S ≤ 65536; длина = E(S)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
+        <mxCell id="n18" value="Размеры допустимы?&#10;S &lt;= 65536; длина = E(S)" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=21;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
           <mxGeometry as="geometry" x="740" y="490" width="460" height="110" />
         </mxCell>
         <mxCell id="n19" value="Осталось кодовое слово?" style="whiteSpace=wrap;html=0;fillColor=#1f1e24;strokeColor=#b3afb9;fontColor=#ececef;fontFamily=Arial;fontSize=22;align=center;verticalAlign=middle;strokeWidth=1.5;spacing=10;shape=rhombus;perimeter=rhombusPerimeter;" vertex="1" parent="1">
